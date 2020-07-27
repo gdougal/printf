@@ -34,5 +34,5 @@ int	ft_pointer(t_print_struct *res_pars, va_list *argptr)
 	if ((res_pars->flags & FLAG_MINUS) && res_pars->width)
 		spcs += ft_putchar_n(' ', res_pars->width - len - 2);
 	len += spcs;
-	return (len);
+	return (len + 2);
 }
