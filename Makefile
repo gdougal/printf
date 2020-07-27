@@ -2,7 +2,7 @@ NAME 		= libftprintf.a
 
 CC			= gcc
 
-CFLAGS		= #-Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror
 
 HEADER_DIR  = includes/
 
@@ -29,7 +29,7 @@ HEAD_PROC   = $(addprefix $(HEADER_DIR), ft_proc.h)
 .PHONY: all
 all: $(NAME)
 
-$(NAME): $(OBJ_DIR) obj
+$(NAME): $(OBJ_DIR) objs
 		@make -C $(LIBFT_DIR)
 		@cp $(LIBFT_DIR)libft.a $(NAME)
 		@ar rcs $(NAME) $(OBJ_DIR)*.o
@@ -37,8 +37,8 @@ $(NAME): $(OBJ_DIR) obj
 $(OBJ_DIR):
 		@mkdir $(OBJ_DIR)
 
-.PHONY: obj
-obj: $(OBJ_PRINTF) $(OBJ_PARSE) $(OBJ_PROC)
+.PHONY: objs
+objs: $(OBJ_PRINTF) $(OBJ_PARSE) $(OBJ_PROC)
 
 $(OBJ_PRINTF): $(OBJ_DIR)%.o: %.c $(HEAD_PRINTF)
 		$(CC) $(CFLAGS) -I $(HEADER_DIR) -I $(LIBFT_DIR) -c $< -o $@

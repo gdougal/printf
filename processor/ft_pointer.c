@@ -21,17 +21,18 @@ int	ft_pointer(t_print_struct *res_pars, va_list *argptr)
 
 	spcs = 0;
 	num = va_arg(*argptr, size_t);
-	len = 2 + ft_nmbrlen(num, 16);
+	len = (!res_pars->precision && !num ? 0 : ft_nmbrlen(num, 16));
 	zr0 = res_pars->precision - len;
-	if (res_pars->precision >= 0 && res_pars->precision > len - 2)
-		len = res_pars->precision + 2;
+	if (res_pars->precision > len)
+		len = res_pars->precision;
 	if (!(res_pars->flags & FLAG_MINUS) && res_pars->width)
-		spcs += ft_putchar_n(' ', res_pars->width - len);
+		spcs += ft_putchar_n(' ', res_pars->width - len - 2);
 	write(1, "0x", 2);
 	ft_putchar_n('0', zr0);
-	ft_putnbr_base_fd(num, 16, 1, 0);
+	if (len > 0)
+		ft_putnbr_base_fd(num, 16, 1, 0);
 	if ((res_pars->flags & FLAG_MINUS) && res_pars->width)
-		spcs += ft_putchar_n(' ', res_pars->width - len);
+		spcs += ft_putchar_n(' ', res_pars->width - len - 2);
 	len += spcs;
 	return (len);
 }
